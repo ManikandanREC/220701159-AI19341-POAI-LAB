@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Water Calculator - FarmWater Advisor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link  rel="stylesheet" href="/static/water.css">
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">FarmWater Advisor</div>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Home</a>
+                <a href="{{ url_for('water_calculator') }}" style="text-decoration: none;">Water Calculator</a>
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Crop Water Needs Calculator</h1>
+        
+        <div class="calculator-card">
+            <form id="waterCalculator">
+                <div class="form-group">
+                    <label for="cropType">Crop Type:</label>
+                    <select id="cropType" name="cropType" required>
+                        <option value="">Select a crop</option>
+                        <option value="rice">Rice</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="corn">Corn</option>
+                        <option value="soybean">Soybean</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="barley">Barley</option>
+                        <option value="sugarcane">Sugarcane</option>
+                        <option value="potato">Potato</option>
+                        <option value="tomato">Tomato</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="soilType">Soil Type:</label>
+                    <select id="soilType" name="soilType" required>
+                        <option value="">Select soil type</option>
+                        <option value="clay">Clay</option>
+                        <option value="loam">Loam</option>
+                        <option value="sandy">Sandy</option>
+                        <option value="silt">Silt</option>
+                        <option value="peat">Peat</option>
+                        <option value="chalk">Chalk</option>
+                        <option value="gravel">Gravel</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fieldSize">Field Size (acres):</label>
+                    <input type="number" id="fieldSize" name="fieldSize" min="0.1" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="growthStage">Growth Stage:</label>
+                    <select id="growthStage" name="growthStage" required>
+                        <option value="">Select growth stage</option>
+                        <option value="initial">Initial Stage</option>
+                        <option value="development">Crop Development</option>
+                        <option value="mid">Mid Season</option>
+                        <option value="late">Late Season</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your location" required>
+                </div>
+                
+
+                <button type="submit">Calculate Water Needs</button>
+            </form>
+
+            <div id="results" class="results" style="display: none;">
+                <h3>Water Requirement Results</h3>
+                <p id="dailyWater"></p>
+                <p id="weeklyWater"></p>
+                <p id="totalWater"></p>
+                <p id="recommendations"></p>
+            </div>
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </div>
+
+        <div class="tips">
+            <h2>Water Saving Tips</h2>
+            <div class="tip-card">
+                <h3>Soil Moisture Monitoring</h3>
+                <p>Use soil moisture sensors to accurately determine when irrigation is needed.</p>
+            </div>
+            <div class="tip-card">
+                <h3>Timing is Key</h3>
+                <p>Water early in the morning or late in the evening to reduce evaporation losses.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 FarmWater Advisor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $('#waterCalculator').on('submit', function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                    url: "{{ url_for('water_calculator') }}",
+                    method: "POST",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        $('#results').show();
+                        $('#error-message').hide();
+                        $('#dailyWater').text(response.dailyWater);
+                        $('#weeklyWater').text(response.weeklyWater);
+                        $('#totalWater').text(response.totalWater);
+                        $('#recommendations').text(response.recommendations);
+                    },
+                    error: function(error) {
+                        console.log("Error:", error);
+                        $('#results').hide();
+                        $('#error-message').text("An error occurred. Please try again.").show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

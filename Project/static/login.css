@@ -1,0 +1,74 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('/static/images/login_bg.jpg'); /* Update with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Full height for centering */
+    display: flex; /* Centering */
+    justify-content: center; /* Centering */
+    align-items: center; /* Centering */
+}
+
+.container {
+    width: 100%; /* Full width */
+    max-width: 400px; /* Set max width for the login box */
+}
+
+.login-form {
+    background: rgba(255, 255, 255, 0.3); /* Slightly more opaque for better visibility */
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    backdrop-filter: blur(10px); /* Glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
+}
+
+h2 {
+    text-align: center;
+    color: white; /* Change color to fit the glass effect */
+    margin-bottom: 1.5rem; /* Spacing below the heading */
+}
+
+.form-group {
+    margin-bottom: 1.5rem; /* Space between form groups */
+}
+
+.form-group label {
+    color: white; /* Label color */
+    font-weight: bold; /* Make label text bold */
+    display: block; /* Ensure labels take full width */
+    margin-bottom: 0.5rem; /* Space below labels */
+}
+
+.form-group input {
+    background: rgba(255, 255, 255, 0.9); /* More opaque for better readability */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Light border */
+    border-radius: 0.25rem; /* Rounded corners */
+    padding: 0.5rem; /* Padding inside the input */
+    width: 100%; /* Full width input */
+    color: #333; /* Text color inside input */
+    font-size: 1rem; /* Font size for input text */
+}
+
+.error-message {
+    color: #dc2626; /* Error message color */
+    margin-top: 0.5rem; /* Space above error message */
+}
+
+button {
+    width: 100%; /* Full width button */
+    background-color: #16a34a; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    border-radius: 0.25rem; /* Rounded corners */
+    padding: 0.75rem; /* Padding inside button */
+    font-size: 1rem; /* Font size for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for background color */
+}
+
+button:hover {
+    background-color: #15803d; /* Darker green on hover */
+}
