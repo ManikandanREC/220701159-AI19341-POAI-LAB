@@ -1,0 +1,24 @@
+% Facts
+parent(john, mary).
+parent(mary, susan).
+parent(susan, tom).
+
+% Rules
+ancestor(X, Y) :- parent(X, Y).               % Direct parent
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y). % Recursive rule for ancestors
+
+Check:-
+
+?- parent(john, mary).
+true.
+
+?- parent(X, mary).
+X = john.
+
+?- ancestor(john, tom).
+true.
+
+?- ancestor(X, tom).
+X = john ;
+X = mary ;
+X = susan.

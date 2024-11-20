@@ -1,0 +1,22 @@
+% Facts
+likes(john, pizza).
+likes(mary, pasta).
+likes(susan, pizza).
+likes(mary, pizza).
+
+% Rules
+friends(X, Y) :- likes(X, Z), likes(Y, Z), X \= Y.
+
+Check:-
+
+?- friends(john, mary).
+true.
+
+?- friends(X, susan).
+X = john ;
+false.
+
+?- likes(X, pizza).
+X = john ;
+X = susan ;
+X = mary.

@@ -1,0 +1,48 @@
+N = 8  # The size of the chessboard and number of queens
+
+def print_solution(board):
+    for row in board:
+        print(" ".join("Q" if cell else "." for cell in row))
+    print("\n")
+
+def is_safe(board, row, col):
+    # Check for queen in the same column
+    for i in range(row):
+        if board[i][col]:
+            return False
+
+    # Check for queen on the upper-left diagonal
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[i][j]:
+            return False
+
+    # Check for queen on the upper-right diagonal
+    for i, j in zip(range(row, -1, -1), range(col, N)):
+        if board[i][j]:
+            return False
+
+    return True
+
+def solve_n_queens(board, row):
+    # Base case: If all queens are placed
+    if row == N:
+        print_solution(board)
+        return True
+
+    res = False
+    for col in range(N):
+        if is_safe(board, row, col):
+            # Place the queen
+            board[row][col] = True
+            # Recur to place the rest
+            res = solve_n_queens(board, row + 1) or res
+            # Backtrack
+            board[row][col] = False
+    return res
+
+def solve():
+    board = [[False] * N for _ in range(N)]
+    if not solve_n_queens(board, 0):
+        print("No solution exists!")
+
+solve()
